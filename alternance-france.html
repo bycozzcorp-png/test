@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlterJob — Trouve ton alternance en France</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --yellow: #FFD43B;
+      --orange: #FF6B35;
+      --blue: #3B82F6;
+      --purple: #8B5CF6;
+      --green: #10B981;
+      --pink: #EC4899;
+      --bg: #FFFBF0;
+      --dark: #1A1A2E;
+      --card-bg: #FFFFFF;
+      --text: #2D2D44;
+      --muted: #6B7280;
+      --radius: 18px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: #fff;
+      border-bottom: 3px solid var(--dark);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 0 var(--dark);
+    }
+
+    .logo {
+      font-family: 'Baloo 2', cursive;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-badge {
+      background: var(--yellow);
+      border: 2.5px solid var(--dark);
+      border-radius: 8px;
+      padding: 2px 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      transform: rotate(-2deg);
+      display: inline-block;
+    }
+
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--orange); }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+      border: 2.5px solid var(--dark);
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-family: 'Baloo 2', cursive;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--dark);
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--dark);
+    }
+    .btn-primary:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--dark);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 48px 56px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 48px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow);
+      border: 2px solid var(--dark);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      box-shadow: 2px 2px 0 var(--dark);
+    }
+
+    .hero h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 18px;
+    }
+    .hero h1 .highlight {
+      position: relative;
+      display: inline-block;
+      color: var(--orange);
+    }
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: var(--yellow);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 24px;
+      margin-top: 36px;
+    }
+    .stat-box {
+      background: #fff;
+      border: 2.5px solid var(--dark);
+      border-radius: var(--radius-sm);
+      padding: 14px 20px;
+      box-shadow: 4px 4px 0 var(--dark);
+    }
+    .stat-box .num {
+      font-family: 'Baloo 2', cursive;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+    .stat-box .label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Hero illustration */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-blob {
+      width: 380px;
+      height: 380px;
+      background: var(--yellow);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      border: 3px solid var(--dark);
+      position: relative;
+      animation: blobFloat 5s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes blobFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+    }
+    .hero-emoji {
+      font-size: 120px;
+      filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.15));
+      animation: emojiPop 3s ease-in-out infinite;
+    }
+    @keyframes emojiPop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06) rotate(5deg); }
+    }
+
+    /* floating chips */
+    .float-chip {
+      position: absolute;
+      background: #fff;
+      border: 2.5px solid var(--dark);
+      border-radius: 50px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 3px 3px 0 var(--dark);
+      white-space: nowrap;
+      animation: chipFloat 4s ease-in-out infinite;
+    }
+    .float-chip:nth-child(2) { top: 30px; right: -10px; animation-delay: 0s; background: #E0F2FE; }
+    .float-chip:nth-child(3) { bottom: 50px; left: -20px; animation-delay: 1.2s; background: #DCFCE7; }
+    .float-chip:nth-child(4) { top: 80px; left: -30px; animation-delay: 2.1s; background: #FEE2E2; }
+    @keyframes chipFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ── SEARCH BOX ── */
+    .search-section {
+      background: var(--dark);
+      padding: 56px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .search-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .search-container {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .search-container h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .search-container p {
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      margin-bottom: 32px;
+      font-size: 16px;
+    }
+
+    .search-box {
+      background: #fff;
+      border: 3px solid var(--yellow);
+      border-radius: 20px;
+      padding: 10px 10px 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 6px 6px 0 var(--yellow);
+    }
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--dark);
+      background: transparent;
+    }
+    .search-box input::placeholder { color: #aaa; font-weight: 500; }
+
+    .search-divider {
+      width: 2px;
+      height: 28px;
+      background: #eee;
+      border-radius: 2px;
+    }
+
+    .search-filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .filter-select {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+      transition: border-color 0.2s;
+    }
+    .filter-select:hover { border-color: var(--yellow); }
+    .filter-select option { background: var(--dark); color: #fff; }
+
+    .search-btn {
+      background: var(--yellow);
+      color: var(--dark);
+      border: 2.5px solid var(--dark);
+      border-radius: 12px;
+      padding: 12px 28px;
+      font-family: 'Baloo 2', cursive;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+    .search-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+    }
+
+    /* Tags populaires */
+    .popular-tags {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .popular-tags span {
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .tag {
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tag:hover {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--dark);
+    }
+
+    /* ── SECTEURS ── */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 48px;
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .section-header h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--dark);
+    }
+    .section-header a {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .section-header a:hover { text-decoration: underline; }
+
+    .secteurs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .secteur-card {
+      background: #fff;
+      border: 2.5px solid var(--dark);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 4px 4px 0 var(--dark);
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+    .secteur-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 7px 7px 0 var(--dark);
+    }
+    .secteur-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .secteur-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .secteur-card .count {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .secteur-card[data-color="yellow"] { background: #FFFBEB; }
+    .secteur-card[data-color="blue"] { background: #EFF6FF; }
+    .secteur-card[data-color="green"] { background: #ECFDF5; }
+    .secteur-card[data-color="pink"] { background: #FDF2F8; }
+    .secteur-card[data-color="purple"] { background: #F5F3FF; }
+    .secteur-card[data-color="orange"] { background: #FFF7ED; }
+    .secteur-card[data-color="teal"] { background: #F0FDFA; }
+    .secteur-card[data-color="red"] { background: #FFF1F2; }
+
+    /* ── OFFRES RÉCENTES ── */
+    .offres-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .offre-card {
+      background: #fff;
+      border: 2.5px solid var(--dark);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 4px 4px 0 var(--dark);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .offre-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 7px 7px 0 var(--dark);
+    }
+    .offre-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .company-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      border: 2px solid var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .offre-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 50px;
+      border: 1.5px solid currentColor;
+    }
+    .badge-apprentissage { color: var(--blue); background: #EFF6FF; }
+    .badge-alternance { color: var(--purple); background: #F5F3FF; }
+    .badge-stage { color: var(--green); background: #ECFDF5; }
+
+    .offre-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .offre-card .company-name {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .offre-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .meta-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      background: #F9FAFB;
+      border-radius: 50px;
+      padding: 4px 10px;
+      border: 1.5px solid #E5E7EB;
+    }
+    .offre-footer {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .offre-date { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .btn-voir {
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-voir:hover { background: var(--orange); }
+
+    /* ── COMMENT ÇA MARCHE ── */
+    .how-section {
+      background: var(--dark);
+      padding: 72px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .how-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      right: -80px;
+      width: 300px;
+      height: 300px;
+      background: var(--yellow);
+      border-radius: 50%;
+      opacity: 0.08;
+    }
+
+    .how-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .how-inner h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 14%;
+      right: 14%;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.2) 0, rgba(255,255,255,0.2) 8px, transparent 8px, transparent 16px);
+    }
+    .step-card {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--yellow);
+      border: 3px solid var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 4px 4px 0 rgba(255,255,255,0.2);
+      font-size: 32px;
+    }
+    .step-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .step-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 48px;
+    }
+    .cta-banner {
+      background: var(--yellow);
+      border: 3px solid var(--dark);
+      border-radius: 24px;
+      padding: 56px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 8px 8px 0 var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '🚀';
+      position: absolute;
+      right: 220px;
+      top: -10px;
+      font-size: 100px;
+      opacity: 0.15;
+      transform: rotate(20deg);
+    }
+    .cta-banner h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .cta-banner p {
+      font-size: 16px;
+      color: rgba(0,0,0,0.55);
+    }
+    .btn-dark {
+      background: var(--dark);
+      color: #fff;
+      border: 2.5px solid var(--dark);
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-family: 'Baloo 2', cursive;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+      transition: transform 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-dark:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 rgba(0,0,0,0.25);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 3px solid var(--dark);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+    }
+    footer .logo { font-size: 22px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      header { padding: 14px 20px; }
+      nav { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 40px 20px; }
+      .hero-visual { display: none; }
+      .secteurs-grid { grid-template-columns: repeat(2, 1fr); }
+      .offres-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
+      .cta-banner { flex-direction: column; gap: 24px; text-align: center; padding: 36px 24px; }
+      .section { padding: 48px 20px; }
+      .search-section { padding: 40px 20px; }
+      .search-filters { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .how-section { padding: 48px 20px; }
+    }
+
+    /* Animations d'entrée */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate {
+      animation: fadeUp 0.5s ease forwards;
+      opacity: 0;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a class="logo" href="#">
+      AlterJob
+      <span class="logo-badge">France 🇫🇷</span>
+    </a>
+    <nav>
+      <a href="#">Offres</a>
+      <a href="#">Secteurs</a>
+      <a href="#">Entreprises</a>
+      <a href="#">Conseils</a>
+    </nav>
+    <a class="btn-primary" href="#">Déposer une offre</a>
+  </header>
+
+  <!-- HERO -->
+  <section style="background: linear-gradient(160deg, #FFFBF0 60%, #FFF3CD)">
+    <div class="hero">
+      <div>
+        <div class="hero-tag animate">
+          ✨ Plateforme #1 d'alternance en France
+        </div>
+        <h1 class="animate delay-1">
+          Trouve ton <span class="highlight">alternance</span> de rêve, maintenant 🎯
+        </h1>
+        <p class="animate delay-2">
+          Des milliers d'offres d'apprentissage et d'alternance partout en France. 
+          Pour les lycéens, étudiants et jeunes qui veulent construire leur avenir.
+        </p>
+        <div class="animate delay-3" style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a class="btn-primary" href="#recherche" style="font-size:17px; padding:13px 28px;">
+            🔍 Chercher une offre
+          </a>
+          <a href="#" style="display:inline-flex; align-items:center; gap:8px; font-family:'Baloo 2',cursive; font-weight:700; font-size:16px; color:var(--dark); text-decoration:none; padding:13px 0;">
+            En savoir plus →
+          </a>
+        </div>
+        <div class="hero-stats animate delay-4">
+          <div class="stat-box">
+            <div class="num">48 500+</div>
+            <div class="label">Offres actives</div>
+          </div>
+          <div class="stat-box">
+            <div class="num">12 000+</div>
+            <div class="label">Entreprises partenaires</div>
+          </div>
+          <div class="stat-box">
+            <div class="num">96 dép.</div>
+            <div class="label">Couverts en France</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-blob">
+          <div class="hero-emoji">🎓</div>
+          <div class="float-chip">📍 Paris · 3 240 offres</div>
+          <div class="float-chip">✅ Contrat signé !</div>
+          <div class="float-chip">💼 Informatique</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH -->
+  <section class="search-section" id="recherche">
+    <div class="search-container">
+      <h2>🔎 Trouve ton offre</h2>
+      <p>Apprentissage, alternance, stage — tout est là</p>
+      <div class="search-box">
+        <span style="font-size:20px">🔍</span>
+        <input type="text" placeholder="Métier, secteur, entreprise..." id="searchInput" />
+        <div class="search-divider"></div>
+        <input type="text" placeholder="📍 Ville, département..." style="flex:0.6; border:none; outline:none; font-family:'Nunito',sans-serif; font-size:15px; font-weight:600; color:var(--dark); background:transparent;" />
+        <button class="search-btn" onclick="simulateSearch()">Rechercher →</button>
+      </div>
+      <div class="search-filters">
+        <select class="filter-select">
+          <option>🎓 Type de contrat</option>
+          <option>Apprentissage</option>
+          <option>Alternance (Pro)</option>
+          <option>Stage</option>
+        </select>
+        <select class="filter-select">
+          <option>📚 Niveau d'études</option>
+          <option>CAP / BEP</option>
+          <option>Bac Pro</option>
+          <option>BTS / BUT</option>
+          <option>Licence / Bachelor</option>
+          <option>Master / Ingénieur</option>
+        </select>
+        <select class="filter-select">
+          <option>⏱ Durée</option>
+          <option>6 mois</option>
+          <option>1 an</option>
+          <option>2 ans</option>
+          <option>3 ans</option>
+        </select>
+      </div>
+      <div class="popular-tags">
+        <span>Populaire :</span>
+        <span class="tag" onclick="fillSearch('Informatique')">💻 Informatique</span>
+        <span class="tag" onclick="fillSearch('Commerce')">🛍 Commerce</span>
+        <span class="tag" onclick="fillSearch('Boulangerie')">🥐 Boulangerie</span>
+        <span class="tag" onclick="fillSearch('Santé')">🏥 Santé</span>
+        <span class="tag" onclick="fillSearch('Mécanique')">🔧 Mécanique</span>
+        <span class="tag" onclick="fillSearch('Design')">🎨 Design</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTEURS -->
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--orange); margin-bottom:4px;">EXPLORER PAR SECTEUR</div>
+        <h2>Quel domaine te parle ? 🤔</h2>
+      </div>
+      <a href="#">Voir tous les secteurs →</a>
+    </div>
+    <div class="secteurs-grid">
+      <a class="secteur-card" data-color="blue" href="#">
+        <span class="secteur-icon">💻</span>
+        <h3>Informatique & Tech</h3>
+        <div class="count">8 420 offres</div>
+      </a>
+      <a class="secteur-card" data-color="yellow" href="#">
+        <span class="secteur-icon">🛍</span>
+        <h3>Commerce & Vente</h3>
+        <div class="count">6 180 offres</div>
+      </a>
+      <a class="secteur-card" data-color="green" href="#">
+        <span class="secteur-icon">🏥</span>
+        <h3>Santé & Social</h3>
+        <div class="count">4 910 offres</div>
+      </a>
+      <a class="secteur-card" data-color="orange" href="#">
+        <span class="secteur-icon">🍽</span>
+        <h3>Hôtellerie & Resto</h3>
+        <div class="count">5 320 offres</div>
+      </a>
+      <a class="secteur-card" data-color="purple" href="#">
+        <span class="secteur-icon">🎨</span>
+        <h3>Design & Créa</h3>
+        <div class="count">2 740 offres</div>
+      </a>
+      <a class="secteur-card" data-color="teal" href="#">
+        <span class="secteur-icon">⚙️</span>
+        <h3>Industrie & BTP</h3>
+        <div class="count">7 650 offres</div>
+      </a>
+      <a class="secteur-card" data-color="pink" href="#">
+        <span class="secteur-icon">📊</span>
+        <h3>Finance & Gestion</h3>
+        <div class="count">3 890 offres</div>
+      </a>
+      <a class="secteur-card" data-color="red" href="#">
+        <span class="secteur-icon">⚡</span>
+        <h3>Énergie & Environnement</h3>
+        <div class="count">2 150 offres</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- OFFRES RÉCENTES -->
+  <section style="background: linear-gradient(180deg, #F8FAFF 0%, #FFFBF0 100%);">
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div style="font-size:13px; font-weight:700; color:var(--orange); margin-bottom:4px;">FRAÎCHES DU JOUR 🔥</div>
+          <h2>Offres récemment publiées</h2>
+        </div>
+        <a href="#">Voir toutes les offres →</a>
+      </div>
+      <div class="offres-grid" id="offres-grid">
+
+        <div class="offre-card">
+          <div class="offre-top">
+            <div class="company-logo" style="background:#EFF6FF; color:#3B82F6;">OC</div>
+            <span class="offre-badge badge-alternance">Alternance</span>
+          </div>
+          <h3>Développeur·se Web</h3>
+          <div class="company-name">Orange Cyberdefense · Paris 75</div>
+          <div class="offre-meta">
+            <span class="meta-chip">🎓 Bac+3 / Bac+5</span>
+            <span class="meta-chip">📅 2 ans</span>
+            <span class="meta-chip">💰 ~900 €/mois</span>
+          </div>
+          <div class="offre-footer">
+            <span class="offre-date">Il y a 2h</span>
+            <button class="btn-voir">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <div class="offre-card">
+          <div class="offre-top">
+            <div class="company-logo" style="background:#ECFDF5; color:#10B981;">BO</div>
+            <span class="offre-badge badge-apprentissage">Apprentissage</span>
+          </div>
+          <h3>Boulanger·ère CAP</h3>
+          <div class="company-name">Boulangerie Orsini · Lyon 69</div>
+          <div class="offre-meta">
+            <span class="meta-chip">🎓 CAP</span>
+            <span class="meta-chip">📅 2 ans</span>
+            <span class="meta-chip">📍 Lyon 3e</span>
+          </div>
+          <div class="offre-footer">
+            <span class="offre-date">Il y a 4h</span>
+            <button class="btn-voir">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <div class="offre-card">
+          <div class="offre-top">
+            <div class="company-logo" style="background:#FEF3C7; color:#D97706;">DC</div>
+            <span class="offre-badge badge-alternance">Alternance</span>
+          </div>
+          <h3>Assistant·e RH</h3>
+          <div class="company-name">Decathlon Campus · Lille 59</div>
+          <div class="offre-meta">
+            <span class="meta-chip">🎓 BTS / BUT</span>
+            <span class="meta-chip">📅 1 an</span>
+            <span class="meta-chip">💰 ~820 €/mois</span>
+          </div>
+          <div class="offre-footer">
+            <span class="offre-date">Il y a 6h</span>
+            <button class="btn-voir">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <div class="offre-card">
+          <div class="offre-top">
+            <div class="company-logo" style="background:#F5F3FF; color:#8B5CF6;">PL</div>
+            <span class="offre-badge badge-apprentissage">Apprentissage</span>
+          </div>
+          <h3>Électricien·ne BTS</h3>
+          <div class="company-name">Planète Élec · Bordeaux 33</div>
+          <div class="offre-meta">
+            <span class="meta-chip">🎓 BTS</span>
+            <span class="meta-chip">📅 2 ans</span>
+            <span class="meta-chip">💰 ~760 €/mois</span>
+          </div>
+          <div class="offre-footer">
+            <span class="offre-date">Il y a 8h</span>
+            <button class="btn-voir">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <div class="offre-card">
+          <div class="offre-top">
+            <div class="company-logo" style="background:#FFF1F2; color:#E11D48;">MK</div>
+            <span class="offre-badge badge-alternance">Alternance</span>
+          </div>
+          <h3>Chargé·e de Marketing</h3>
+          <div class="company-name">Markai Studio · Nantes 44</div>
+          <div class="offre-meta">
+            <span class="meta-chip">🎓 Bac+4 / Bac+5</span>
+            <span class="meta-chip">📅 1 an</span>
+            <span class="meta-chip">💰 ~950 €/mois</span>
+          </div>
+          <div class="offre-footer">
+            <span class="offre-date">Il y a 10h</span>
+            <button class="btn-voir">Voir l'offre →</button>
+          </div>
+        </div>
+
+        <div class="offre-card">
+          <div class="offre-top">
+            <div class="company-logo" style="background:#F0FDF4; color:#16A34A;">AM</div>
+            <span class="offre-badge badge-stage">Stage</span>
+          </div>
+          <h3>Aide-soignant·e</h3>
+          <div class="company-name">EHPAD Amandine · Toulouse 31</div>
+          <div class="offre-meta">
+            <span class="meta-chip">🎓 DEAS</span>
+            <span class="meta-chip">📅 6 mois</span>
+            <span class="meta-chip">📍 Toulouse</span>
+          </div>
+          <div class="offre-footer">
+            <span class="offre-date">Il y a 12h</span>
+            <button class="btn-voir">Voir l'offre →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="how-section">
+    <div class="how-inner">
+      <h2>Comment ça marche ? C'est simple 👇</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">🔍</div>
+          <h3>1. Tu cherches</h3>
+          <p>Tape ton métier ou secteur de rêve et filtre par ville, niveau ou type de contrat.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">👀</div>
+          <h3>2. Tu explores</h3>
+          <p>Consulte les fiches détaillées : missions, salaire, rythme école/entreprise, contacts.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">📩</div>
+          <h3>3. Tu postules</h3>
+          <p>Envoie ta candidature directement depuis la plateforme en quelques clics.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">🎉</div>
+          <h3>4. Tu décroches !</h3>
+          <p>L'entreprise te contacte et tu commences ton aventure professionnelle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-banner">
+      <div>
+        <h2>Tu es une entreprise ? 🏢</h2>
+        <p>Publie tes offres gratuitement et trouve ton futur apprenti en quelques jours.</p>
+      </div>
+      <a class="btn-dark" href="#">Publier une offre gratuite →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a class="logo" href="#">
+      AlterJob
+      <span class="logo-badge">France 🇫🇷</span>
+    </a>
+    <div class="footer-links">
+      <a href="#">À propos</a>
+      <a href="#">Contact</a>
+      <a href="#">Mentions légales</a>
+      <a href="#">Pour les entreprises</a>
+    </div>
+    <div class="footer-copy">© 2025 AlterJob — Fait avec ❤️ pour les jeunes de France</div>
+  </footer>
+
+  <script>
+    function fillSearch(term) {
+      document.getElementById('searchInput').value = term;
+      document.getElementById('searchInput').focus();
+    }
+
+    function simulateSearch() {
+      const val = document.getElementById('searchInput').value.trim();
+      if (!val) {
+        document.getElementById('searchInput').focus();
+        return;
+      }
+      const btn = document.querySelector('.search-btn');
+      btn.textContent = '⏳ Recherche...';
+      btn.style.opacity = '0.7';
+      setTimeout(() => {
+        btn.textContent = 'Rechercher →';
+        btn.style.opacity = '1';
+        document.getElementById('offres-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 900);
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.secteur-card, .offre-card, .step-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s, translate 0.2s';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
